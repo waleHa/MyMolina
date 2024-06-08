@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "330983955433",
+    "project_id": "mymolina-58ecd",
+    "storage_bucket": "mymolina-58ecd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:330983955433:android:f11585f38e2b2809380978",
+        "android_client_info": {
+          "package_name": "com.healthcare.mymolina"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3_4t-qEvqCYPZISpw6f-B3BEtsdyIFso"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
