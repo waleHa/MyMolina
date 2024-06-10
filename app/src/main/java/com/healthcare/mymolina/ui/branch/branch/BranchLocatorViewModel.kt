@@ -1,10 +1,11 @@
-package com.healthcare.mymolina.ui.branch.viewmodel
+package com.healthcare.mymolina.ui.branch.branch
 
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.healthcare.mymolina.domain.remotemodel.doctor.Doctor
+import com.healthcare.mymolina.domain.remotemodel.doctor.Location
 import com.healthcare.mymolina.domain.usecase.GetPhysicianListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -15,7 +16,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class BranchLocatorViewModel @Inject constructor(private val useCase: GetPhysicianListUseCase) : ViewModel() {
-    private val _branchList = MutableStateFlow<List<Doctor>>(emptyList())
+    private val _branchList = MutableStateFlow<List<Location>>(emptyList())
     val branchList = _branchList.asStateFlow()
 
     private val _loading = MutableStateFlow(false)
@@ -30,7 +31,8 @@ class BranchLocatorViewModel @Inject constructor(private val useCase: GetPhysici
             _loading.value = true
             try {
                 val doctors = useCase()
-                val branches = doctors.filter { it.location != null && it.location.city?.isNotEmpty() == true }
+                val branches = doctors.mapNotNull { it.location }
+                    .distinctBy { listOf(it.street, it.city, it.state, it.zip) }
                 _branchList.emit(branches)
                 Log.i("TAG:BranchLocatorViewModel", branches.toString())
             } catch (e: Exception) {

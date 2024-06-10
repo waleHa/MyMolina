@@ -11,7 +11,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.healthcare.core.AuthManager
-import com.healthcare.mymolina.ui.branch.BranchLocatorScreen
+import com.healthcare.mymolina.ui.branch.branch.BranchLocatorScreen
 import com.healthcare.mymolina.ui.contactus.ContactUsScreen
 import com.healthcare.mymolina.ui.initial.LoginScreen
 import com.healthcare.mymolina.ui.initial.RegisterScreen
