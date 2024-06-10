@@ -163,7 +163,7 @@ fun GridItem(navController:NavController, text: String, icon: Painter, textColor
             }
 
             if (text == "Find a Pharmacy") {
-//                navController.navigate("")
+                navController.navigate("BranchLocatorScreen")
             }
 
             if (text == "Help Line") {
