@@ -1,6 +1,7 @@
 package com.healthcare.mymolina.ui.main
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -24,6 +25,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -33,8 +36,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.healthcare.mymolina.R
+import com.healthcare.mymolina.ui.PhysicianViewModel
 import com.healthcare.mymolina.ui.theme.MyMolinaTheme
+import com.healthcare.mymolina.ui.component.*
 
 data class GridItemData(
     val title: String,
@@ -52,7 +60,14 @@ val gridItems = listOf(
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun MainScreen(modifier: Modifier) {
+fun MainScreen(
+    navController: NavController,
+    modifier: Modifier,
+    viewModel: PhysicianViewModel = hiltViewModel()
+) {
+    val state by viewModel.physicianListSuccess.collectAsState()
+
+    Log.i("TAG: MainScreen", state.toString())
     Scaffold(
         modifier = Modifier
             .fillMaxSize(),
@@ -63,54 +78,21 @@ fun MainScreen(modifier: Modifier) {
 
         Column {
             GridView(
+                navController = navController,
                 modifier = modifier
                     .padding(it)
                     .padding(bottom = 16.dp),
                 textColor = Color.Black,
                 gridItems = gridItems
             )
-            ButtonComponent(backgroundColor, "SIGN IN", {}, modifier)
-            OutlinedButtonComponent(backgroundColor, "NEW USER? REGISTER", {}, modifier)
+            ButtonComponent(backgroundColor, "SIGN IN", {
+                navController.navigate("LoginScreen")
+            }, modifier = modifier)
+            OutlinedButtonComponent(backgroundColor, "NEW USER? REGISTER", {
+                navController.navigate("RegisterScreen")
+            }, modifier)
         }
 
-    }
-}
-
-@Composable
-private fun OutlinedButtonComponent(
-    backgroundColor: Color,
-    text: String,
-    onClick: () -> Unit,
-    modifier: Modifier,
-) {
-    OutlinedButton(
-        onClick = onClick,
-        border = BorderStroke(1.dp, Color(0xFF00796B)),
-        colors = ButtonDefaults.outlinedButtonColors(contentColor = backgroundColor),
-        modifier = modifier
-            .padding(horizontal = 16.dp)
-            .fillMaxWidth()
-
-    ) {
-        Text(text = text)
-    }
-}
-
-@Composable
-private fun ButtonComponent(
-    backgroundColor: Color,
-    text: String,
-    onClick: () -> Unit,
-    modifier: Modifier
-) {
-    Button(
-        onClick = onClick,
-        colors = ButtonDefaults.buttonColors(containerColor = backgroundColor),
-        modifier = modifier
-            .padding(16.dp)
-            .fillMaxWidth()
-    ) {
-        Text(text = text, color = Color.White)
     }
 }
 
@@ -138,6 +120,7 @@ fun TopBarItem(modifier: Modifier) {
 
 @Composable
 fun GridView(
+    navController:NavController,
     gridItems: List<GridItemData>,
     textColor: Color,
     modifier: Modifier,
@@ -152,6 +135,7 @@ fun GridView(
         items(gridItems.size) { index ->
             val item = gridItems[index]
             GridItem(
+                navController = navController,
                 text = item.title,
                 icon = painterResource(id = item.iconResId),
                 textColor = textColor,
@@ -162,10 +146,34 @@ fun GridView(
 }
 
 
+
 @Composable
-fun GridItem(text: String, icon: Painter, textColor: Color, modifier: Modifier) {
+fun GridItem(navController:NavController, text: String, icon: Painter, textColor: Color, modifier: Modifier) {
     TextButton(
-        onClick = { /*TODO*/ },
+        onClick = {
+            if (text == "Find Urgent Care") {
+                navController.navigate("UrgentCare")
+            }
+            if (text == "Nurse Advice Line") {
+//                navController.navigate("")
+            }
+
+            if (text == "Find a Doctor") {
+                navController.navigate("PhysicianScreen")
+            }
+
+            if (text == "Find a Pharmacy") {
+//                navController.navigate("")
+            }
+
+            if (text == "Help Line") {
+//                navController.navigate("")
+            }
+
+            if (text == "Contact Us") {
+                navController.navigate("ContactUs")
+            }
+        },
         modifier = modifier
             .size(140.dp)
             .border(1.dp, Color.LightGray, RoundedCornerShape(8.dp))
@@ -194,10 +202,12 @@ fun GridItem(text: String, icon: Painter, textColor: Color, modifier: Modifier) 
     }
 }
 
+
+
 @Preview(showBackground = true)
 @Composable
 fun Preview() {
     MyMolinaTheme {
-        MainScreen(Modifier)
+        MainScreen(rememberNavController(), Modifier)
     }
 }

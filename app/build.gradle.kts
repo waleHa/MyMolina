@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     id("com.google.dagger.hilt.android")
     id("kotlin-kapt")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -61,7 +62,9 @@ dependencies {
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
-    implementation(libs.androidx.material3)
+//    implementation(libs.androidx.material3)
+//    implementation(libs.androidx.material3.android)
+    implementation("androidx.compose.material3:material3:1.2.1")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -93,4 +96,18 @@ dependencies {
     testImplementation ("org.mockito:mockito-core:5.3.0")
     androidTestImplementation ("org.mockito:mockito-android:5.3.0")
     debugImplementation ("androidx.compose.ui:ui-test-manifest:1.6.7")
+
+    implementation("com.google.firebase:firebase-auth:23.0.0")
+
+
+    //Retrofit
+    implementation ("com.squareup.retrofit2:retrofit:2.10.0")
+    //GSON
+    implementation ("com.squareup.retrofit2:converter-gson:2.10.0")
+    //okhttp
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:1.9.0")
+
+
 }
