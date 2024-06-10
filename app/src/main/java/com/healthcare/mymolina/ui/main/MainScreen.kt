@@ -163,7 +163,7 @@ fun GridItem(navController:NavController, text: String, icon: Painter, textColor
             }
 
             if (text == "Help Line") {
-//                navController.navigate("")
+                navController.navigate("ChatScreen")
             }
 
             if (text == "Contact Us") {

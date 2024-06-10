@@ -39,7 +39,7 @@ class MainActivity : ComponentActivity() {
                     composable("ContactUs") { ContactUsScreen(navController) }
                     composable("PhysicianScreen") { PhysicianScreen(navController) }
                     composable("BranchLocatorScreen") { BranchLocatorScreen(navController) }
-                    composable("ChatScreen") { BranchLocatorScreen(ChatScreen()) }
+                    composable("ChatScreen") { ChatScreen(navController) }
 
                 }
 
