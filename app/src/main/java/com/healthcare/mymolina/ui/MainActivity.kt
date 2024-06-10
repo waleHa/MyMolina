@@ -12,6 +12,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.healthcare.core.AuthManager
 import com.healthcare.mymolina.ui.branch.branch.BranchLocatorScreen
+import com.healthcare.mymolina.ui.chat.ChatScreen
 import com.healthcare.mymolina.ui.contactus.ContactUsScreen
 import com.healthcare.mymolina.ui.initial.LoginScreen
 import com.healthcare.mymolina.ui.initial.RegisterScreen
@@ -38,6 +39,8 @@ class MainActivity : ComponentActivity() {
                     composable("ContactUs") { ContactUsScreen(navController) }
                     composable("PhysicianScreen") { PhysicianScreen(navController) }
                     composable("BranchLocatorScreen") { BranchLocatorScreen(navController) }
+                    composable("ChatScreen") { BranchLocatorScreen(ChatScreen()) }
+
                 }
 
                 if (AuthManager.getCurrentUser() != null) {

@@ -20,6 +20,7 @@ import androidx.navigation.compose.rememberNavController
 import com.healthcare.mymolina.ui.component.*
 import com.healthcare.mymolina.ui.theme.MyMolinaTheme
 
+
 @Composable
 fun UrgentCare(navController: NavController) {
     val context = LocalContext.current
@@ -29,11 +30,11 @@ fun UrgentCare(navController: NavController) {
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
             .padding(16.dp),
-        verticalArrangement = Arrangement.Center,
+        verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         ImageComponent(
-            imageUrl = "https://www.example.com/urgent_care_image.png",
+            imageUrl = "https://palmcoastfamilypractice.com/wp-content/uploads/2020/02/Urgent-Care-Palm-Coast-FL-300x300.png",
             contentDescription = "Urgent Care",
             modifier = Modifier
                 .fillMaxWidth()
@@ -44,10 +45,9 @@ fun UrgentCare(navController: NavController) {
         TextComponent(
             text = "Urgent Care",
             style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold),
-            color = MaterialTheme.colorScheme.primary
+            color = MaterialTheme.colorScheme.primary,
+            modifier = Modifier.padding(bottom = 16.dp)
         )
-
-        SpacerComponent(height = 24.dp)
 
         Card(
             modifier = Modifier.fillMaxWidth(),
@@ -62,10 +62,9 @@ fun UrgentCare(navController: NavController) {
                 TextComponent(
                     text = "If you are experiencing a medical emergency, please call 911 immediately.",
                     style = MaterialTheme.typography.bodyLarge.copy(fontSize = 18.sp),
-                    color = MaterialTheme.colorScheme.onSurface
+                    color = MaterialTheme.colorScheme.onSurface,
+                    modifier = Modifier.padding(bottom = 16.dp)
                 )
-
-                SpacerComponent(height = 16.dp)
 
                 ButtonComponent(
                     backgroundColor = Color.Red,
@@ -81,6 +80,7 @@ fun UrgentCare(navController: NavController) {
         }
     }
 }
+
 
 @Composable
 @Preview(showSystemUi = true)

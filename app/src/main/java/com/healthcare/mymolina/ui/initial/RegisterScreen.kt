@@ -53,15 +53,16 @@ fun RegisterScreen(navController: NavController) {
         modifier = Modifier
             .fillMaxSize()
             .padding(horizontal = 16.dp),
+
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         ImageComponent(
-            imageUrl = "",
-            contentDescription = null,
+            imageUrl = "https://hasdic.org/wp-content/uploads/sites/4/2022/03/Molina-Healthcare-Logo-Stacked.png",
+            contentDescription = "",
             modifier = Modifier
                 .size(250.dp)
-                .padding(bottom = 16.dp)
+                .padding(vertical = 16.dp)
         )
         Text("Hey there,", style = MaterialTheme.typography.headlineMedium)
         Text(

@@ -35,7 +35,7 @@ import com.healthcare.mymolina.ui.component.*
 import com.healthcare.mymolina.ui.theme.MyMolinaTheme
 
 @Composable
-fun LoginScreen(navController: NavController) {
+fun LoginScreen(navController: NavController,message:String="Welcome Back",) {
     val (email, setEmail) = remember { mutableStateOf("") }
     val (password, setPassword) = remember { mutableStateOf("") }
     val (passwordVisible, setPasswordVisible) = remember { mutableStateOf(false) }
@@ -48,18 +48,18 @@ fun LoginScreen(navController: NavController) {
             .fillMaxSize()
             .padding(horizontal = 16.dp),
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         ImageComponent(
-            imageUrl = "",
-            contentDescription = null,
+            imageUrl = "https://hasdic.org/wp-content/uploads/sites/4/2022/03/Molina-Healthcare-Logo-Stacked.png",
+            contentDescription = "",
             modifier = Modifier
                 .size(250.dp)
-                .padding(bottom = 16.dp)
+                .padding(vertical = 16.dp)
         )
         Text("Hey there,", style = MaterialTheme.typography.headlineSmall)
         Text(
-            "Welcome Back",
+            message,
             style = MaterialTheme.typography.headlineMedium,
             fontWeight = FontWeight.Bold
         )

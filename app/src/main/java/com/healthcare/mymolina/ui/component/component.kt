@@ -21,27 +21,36 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
+import coil.compose.rememberAsyncImagePainter
 import coil.compose.rememberImagePainter
+import coil.request.ImageRequest
+import com.healthcare.mymolina.R
+
 
 
 @Composable
 fun ImageComponent(
     imageUrl: String,
-    contentDescription: String?,
-    modifier: Modifier = Modifier,
-    contentScale: ContentScale = ContentScale.Crop
+    contentDescription: String,
+    modifier: Modifier = Modifier
 ) {
-    Image(
-        painter = rememberImagePainter(imageUrl),
+    AsyncImage(
+        model = imageUrl,
         contentDescription = contentDescription,
-        modifier = modifier,
-        contentScale = contentScale
+        placeholder = painterResource(R.drawable.ic_molina2),
+        contentScale = ContentScale.Fit,
+        modifier = modifier
     )
 }
+
+
 
 @Composable
 fun TextComponent(
