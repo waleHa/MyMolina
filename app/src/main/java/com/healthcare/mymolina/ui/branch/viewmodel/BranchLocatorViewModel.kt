@@ -29,17 +29,16 @@ class BranchLocatorViewModel @Inject constructor(private val useCase: GetPhysici
         viewModelScope.launch(Dispatchers.IO) {
             _loading.value = true
             try {
-                val branches = useCase()
+                val doctors = useCase()
+                val branches = doctors.filter { it.location != null && it.location.city?.isNotEmpty() == true }
                 _branchList.emit(branches)
-                Log.i("TAG:BranchLocatorViewModel",branches.toString())
+                Log.i("TAG:BranchLocatorViewModel", branches.toString())
             } catch (e: Exception) {
                 // Handle exception
-                Log.i("TAG E:BranchLocatorViewModel",e.toString())
+                Log.i("TAG E:BranchLocatorViewModel", e.toString())
             } finally {
                 _loading.value = false
             }
         }
     }
 }
-
-

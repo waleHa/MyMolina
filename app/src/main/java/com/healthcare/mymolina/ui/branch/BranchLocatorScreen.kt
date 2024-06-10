@@ -57,10 +57,7 @@ fun BranchLocatorScreen(navController: NavController) {
     // Filtering logic
     LaunchedEffect(branchList, searchQuery, selectedBranch) {
         filteredBranches = branchList.filter {
-            (searchQuery.isEmpty() || it.firstName?.contains(
-                searchQuery,
-                true
-            ) == true || it.lastName?.contains(searchQuery, true) == true) &&
+            (searchQuery.isEmpty() || it.firstName?.contains(searchQuery, true) == true || it.lastName?.contains(searchQuery, true) == true) &&
                     (selectedBranch == "All" || it.location?.city == selectedBranch)
         }
     }

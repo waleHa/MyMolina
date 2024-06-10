@@ -19,14 +19,10 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowDropDown
-import androidx.compose.material.icons.filled.ArrowDropUp
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -51,9 +47,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.healthcare.mymolina.domain.remotemodel.doctor.Doctor
-import com.healthcare.mymolina.ui.PhysicianViewModel
 import com.healthcare.mymolina.ui.component.DropdownMenuComponent
-import com.healthcare.mymolina.ui.component.IconButtonComponent
 import com.healthcare.mymolina.ui.component.ImageComponent
 import com.healthcare.mymolina.ui.component.SpacerComponent
 import com.healthcare.mymolina.ui.component.TextComponent

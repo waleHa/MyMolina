@@ -62,8 +62,6 @@ dependencies {
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
-//    implementation(libs.androidx.material3)
-//    implementation(libs.androidx.material3.android)
     implementation("androidx.compose.material3:material3:1.2.1")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -74,10 +72,15 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
     //Testing
     // Test rules and transitive dependencies:
-//    androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.8.0")
-//    debugImplementation("androidx.compose.ui:ui-test-manifest:1.6.7")
+    testImplementation ("org.mockito.kotlin:mockito-kotlin:5.3.1")
+    testImplementation ("org.mockito:mockito-core:5.3.1")
+    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.1")
     androidTestImplementation ("androidx.compose.ui:ui-test-junit4:1.6.7")
-//    androidTestImplementation ("androidx.compose.ui:ui-test-junit4-android:1.6.7")
+    testImplementation("androidx.arch.core:core-testing:2.0.0-alpha1")
+    // MockK for mocking
+    androidTestImplementation("org.mockito:mockito-android:5.3.0")
+    debugImplementation("androidx.compose.ui:ui-test-manifest:1.6.7")
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -101,10 +104,7 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.5.3")
     implementation("androidx.compose.material:material-icons-extended:1.6.7")
 
-    // MockK for mocking
-    testImplementation("org.mockito:mockito-core:5.3.0")
-    androidTestImplementation("org.mockito:mockito-android:5.3.0")
-    debugImplementation("androidx.compose.ui:ui-test-manifest:1.6.7")
+
 
     implementation("com.google.firebase:firebase-auth:23.0.0")
 

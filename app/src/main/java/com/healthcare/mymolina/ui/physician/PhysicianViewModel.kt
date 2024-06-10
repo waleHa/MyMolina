@@ -1,6 +1,5 @@
-package com.healthcare.mymolina.ui
+package com.healthcare.mymolina.ui.physician
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.healthcare.mymolina.domain.remotemodel.doctor.Doctor
@@ -11,7 +10,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-
 
 
 @HiltViewModel
