@@ -1,14 +1,29 @@
 package com.healthcare.mymolina.ui
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.healthcare.core.AuthManager
 import com.healthcare.mymolina.ui.branch.branch.BranchLocatorScreen
@@ -24,40 +39,74 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             MyMolinaTheme {
                 val navController = rememberNavController()
+                val currentDestination by navController.currentBackStackEntryAsState()
+                val showTopBar = currentDestination?.destination?.route !in listOf("LoginScreen", "RegisterScreen")
 
-                NavHost(navController = navController, startDestination = "LoginScreen" ){
-                    composable("MainScreen"){MainScreen(navController,Modifier)}
-                    composable("LoginScreen"){LoginScreen(navController)}
-                    composable("RegisterScreen"){RegisterScreen(navController)}
-                    composable("UrgentCare"){ UrgentCare(navController) }
-                    composable("ContactUs") { ContactUsScreen(navController) }
-                    composable("PhysicianScreen") { PhysicianScreen(navController) }
-                    composable("BranchLocatorScreen") { BranchLocatorScreen(navController) }
-                    composable("ChatScreen") { ChatScreen(navController) }
+                Scaffold(
+                    topBar = {
+                        if (showTopBar) {
+                            TopAppBarWithBack(navController = navController, title = currentDestination?.destination?.route ?: "My Molina")
+                        }
+                    }
+                ) {
+                    NavHost(navController = navController, startDestination = "LoginScreen") {
+                        composable("MainScreen") { MainScreen(navController, Modifier) }
+                        composable("LoginScreen") { LoginScreen(navController) }
+                        composable("RegisterScreen") { RegisterScreen(navController) }
+                        composable("UrgentCare") { UrgentCare(navController) }
+                        composable("ContactUs") { ContactUsScreen(navController) }
+                        composable("PhysicianScreen") { PhysicianScreen(navController) }
+                        composable("BranchLocatorScreen") { BranchLocatorScreen(navController) }
+                        composable("ChatScreen") { ChatScreen(navController) }
+                    }
 
+                    if (AuthManager.getCurrentUser() != null) {
+                        navController.navigate("MainScreen")
+                    }
                 }
-
-                if (AuthManager.getCurrentUser() != null) {
-                    navController.navigate("MainScreen")
-                }
-
             }
         }
     }
+}
 
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun TopAppBarWithBack(navController: NavController, title: String) {
+    TopAppBar(
+        title = {
+            Text(
+                text = title,
+                color = MaterialTheme.colorScheme.onPrimary,
+                style = MaterialTheme.typography.titleLarge
+            )
+        },
+        navigationIcon = {
+            IconButton(onClick = { navController.navigateUp() }) {
+                Icon(
+                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                    contentDescription = "Back",
+                    tint = MaterialTheme.colorScheme.onPrimary
+                )
+            }
+        },
+        colors = TopAppBarDefaults.topAppBarColors(
+            containerColor = MaterialTheme.colorScheme.primary
+        )
+    )
 }
 
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     MyMolinaTheme {
-        MainScreen(rememberNavController(),Modifier)
+        MainScreen(rememberNavController(), Modifier)
     }
 }
