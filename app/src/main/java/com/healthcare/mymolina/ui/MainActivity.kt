@@ -47,7 +47,7 @@ class MainActivity : ComponentActivity() {
             MyMolinaTheme {
                 val navController = rememberNavController()
                 val currentDestination by navController.currentBackStackEntryAsState()
-                val showTopBar = currentDestination?.destination?.route !in listOf("LoginScreen", "RegisterScreen")
+                val showTopBar = currentDestination?.destination?.route !in listOf("LoginScreen", "RegisterScreen","MainScreen")
 
                 Scaffold(
                     topBar = {

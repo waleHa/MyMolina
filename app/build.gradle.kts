@@ -62,7 +62,7 @@ dependencies {
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
-    implementation("androidx.compose.material3:material3:1.2.1")
+    implementation(libs.material3)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -72,24 +72,23 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
     //Testing
     // Test rules and transitive dependencies:
-    testImplementation ("org.mockito.kotlin:mockito-kotlin:5.3.1")
-    testImplementation ("org.mockito:mockito-core:5.3.1")
-    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.1")
-    androidTestImplementation ("androidx.compose.ui:ui-test-junit4:1.6.7")
-    testImplementation("androidx.arch.core:core-testing:2.0.0-alpha1")
+    testImplementation (libs.mockito.kotlin)
+    testImplementation (libs.mockito.core)
+    testImplementation (libs.kotlinx.coroutines.test)
+    androidTestImplementation (libs.ui.test.junit4)
+    testImplementation("androidx.arch.core:core-testing:2.2.0")
     // MockK for mocking
-    androidTestImplementation("org.mockito:mockito-android:5.3.0")
-    debugImplementation("androidx.compose.ui:ui-test-manifest:1.6.7")
+    androidTestImplementation(libs.mockito.android)
+    debugImplementation(libs.ui.test.manifest)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    testImplementation("com.google.truth:truth:1.4.2")
     //Hilt
 
-    implementation("com.google.dagger:hilt-android:2.51.1")
+    implementation(libs.hilt.android)
     kapt("com.google.dagger:hilt-compiler:2.51.1")
-    implementation("androidx.hilt:hilt-navigation-fragment:1.0.0")
+    implementation("androidx.hilt:hilt-navigation-fragment:1.2.0")
     implementation("androidx.hilt:hilt-work:1.0.0")
     implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
     androidTestImplementation("com.google.dagger:hilt-android-testing:2.51")
