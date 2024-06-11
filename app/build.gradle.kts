@@ -76,7 +76,7 @@ dependencies {
     testImplementation (libs.mockito.core)
     testImplementation (libs.kotlinx.coroutines.test)
     androidTestImplementation (libs.ui.test.junit4)
-    testImplementation("androidx.arch.core:core-testing:2.2.0")
+    testImplementation(libs.androidx.core.testing)
     // MockK for mocking
     androidTestImplementation(libs.mockito.android)
     debugImplementation(libs.ui.test.manifest)
@@ -85,37 +85,30 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     //Hilt
-
     implementation(libs.hilt.android)
-    kapt("com.google.dagger:hilt-compiler:2.51.1")
-    implementation("androidx.hilt:hilt-navigation-fragment:1.2.0")
-    implementation("androidx.hilt:hilt-work:1.0.0")
-    implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
-    androidTestImplementation("com.google.dagger:hilt-android-testing:2.51")
-    kaptAndroidTest("com.google.dagger:hilt-android-compiler:2.51")
-    //
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.4.0")
-
+    kapt(libs.hilt.compiler)
+    implementation(libs.androidx.hilt.navigation.fragment)
+    implementation(libs.androidx.hilt.work)
+    implementation(libs.androidx.hilt.navigation.compose)
+    androidTestImplementation(libs.hilt.android.testing)
+    kaptAndroidTest(libs.hilt.android.compiler)
+    //Livedata lifecycle
+    implementation(libs.androidx.lifecycle.livedata.ktx)
     //Coil
-    implementation("io.coil-kt:coil-compose:2.1.0")
-
-    implementation("androidx.work:work-runtime-ktx:2.7.0")
-    implementation("androidx.navigation:navigation-compose:2.5.3")
-    implementation("androidx.compose.material:material-icons-extended:1.6.7")
-
-
-
-    implementation("com.google.firebase:firebase-auth:23.0.0")
-
-
+    implementation(libs.coil.compose)
+    implementation(libs.androidx.work.runtime.ktx)
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.material.icons.extended)
+    //Firebase
+    implementation(libs.firebase.auth)
     //Retrofit
-    implementation("com.squareup.retrofit2:retrofit:2.10.0")
+    implementation(libs.retrofit)
     //GSON
-    implementation("com.squareup.retrofit2:converter-gson:2.10.0")
+    implementation(libs.converter.gson)
     //okhttp
-    implementation("com.squareup.okhttp3:okhttp:4.12.0")
-    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
-    implementation("org.jetbrains.kotlin:kotlin-reflect:1.9.0")
+    implementation(libs.okhttp)
+    implementation(libs.logging.interceptor)
+    implementation(libs.kotlin.reflect)
 
 
 }
