@@ -125,7 +125,6 @@ fun PhysicianScreen(navController: NavController) {
         Column(
             modifier = Modifier
                 .padding(it)
-                .padding(it)
                 .fillMaxSize()
                 .background(MaterialTheme.colorScheme.background)
         ) {
