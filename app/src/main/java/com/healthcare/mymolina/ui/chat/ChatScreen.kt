@@ -53,15 +53,7 @@ fun ChatScreen(navController: NavController, title:String= "Chat", viewModel: Ch
     val scrollState = rememberScrollState()
 
     Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text(title) },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = if (!isSystemInDarkTheme()) Color(0xFF008493) else Color(0xFF006677),
-                    titleContentColor = Color.White
-                )
-            )
-        }
+        topBar = TopAppBarWithBack(navController = navController, title = "Chat" )
     ) { paddingValues ->
         Column(
             modifier = Modifier

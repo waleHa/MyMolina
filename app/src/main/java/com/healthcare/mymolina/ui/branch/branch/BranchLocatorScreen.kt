@@ -50,81 +50,97 @@ fun BranchLocatorScreen(navController: NavController) {
     // Filtering logic
     LaunchedEffect(branchList, searchQuery, selectedCity) {
         filteredBranches = branchList.filter {
-            (searchQuery.isEmpty() || it.city?.contains(searchQuery, true) == true || it.state?.contains(searchQuery, true) == true || it.street?.contains(searchQuery, true) == true || it.zip?.contains(searchQuery, true) == true) &&
+            (searchQuery.isEmpty() || it.city?.contains(
+                searchQuery,
+                true
+            ) == true || it.state?.contains(searchQuery, true) == true || it.street?.contains(
+                searchQuery,
+                true
+            ) == true || it.zip?.contains(searchQuery, true) == true) &&
                     (selectedCity == "All" || it.city == selectedCity)
         }
     }
+    Scaffold(
+        topBar = TopAppBarWithBack(navController = navController, title = "Branches")
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
-    ) {
+    ) { paddingValues ->
         Column(
             modifier = Modifier
-                .background(Color(0xFFCCFFFF))
-                .padding(16.dp)
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.background)
         ) {
-            Text(
-                text = "Branch Locator",
-                style = MaterialTheme.typography.headlineMedium.copy(fontSize = 24.sp),
-                color = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.padding(bottom = 16.dp)
-            )
-
-            // Search Field
-            OutlinedTextField(
-                value = searchQuery,
-                onValueChange = {
-                    searchQuery = it
-                    searchJob?.cancel()
-                    searchJob = coroutineScope.launch {
-                        delay(300)  // debounce time for search
-                        filteredBranches = branchList.filter { branch ->
-                            branch.city!!.contains(searchQuery, ignoreCase = true) ||
-                                    branch.state!!.contains(searchQuery, ignoreCase = true) ||
-                                    branch.street!!.contains(searchQuery, ignoreCase = true) ||
-                                    branch.zip!!.contains(searchQuery, ignoreCase = true)
-                        }
-                    }
-                },
-                label = { Text("Search branches") },
-                leadingIcon = { Icon(Icons.Default.Search, contentDescription = "Search Icon") },
-                singleLine = true,
+            Column(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 16.dp)
-            )
-
-            // Address Dropdown
-            DropdownMenuComponent(
-                label = "Select City",
-                options = cities,
-                selectedOption = selectedCity,
-                onOptionSelected = { selectedCity = it }
-            )
-        }
-
-        SpacerComponent(height = 16.dp)
-
-        if (loading) {
-            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                CircularProgressIndicator()
-            }
-        } else {
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(MaterialTheme.colorScheme.surface.copy(alpha = 0.1f))
-                    .padding(horizontal = 16.dp)
+                    .background(Color(0xFFCCFFFF))
+                    .padding(16.dp)
             ) {
-                items(filteredBranches) { branch ->
-                    BranchItem(branch)
+                Text(
+                    text = "Branch Locator",
+                    style = MaterialTheme.typography.headlineMedium.copy(fontSize = 24.sp),
+                    color = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier.padding(bottom = 16.dp)
+                )
+
+                // Search Field
+                OutlinedTextField(
+                    value = searchQuery,
+                    onValueChange = {
+                        searchQuery = it
+                        searchJob?.cancel()
+                        searchJob = coroutineScope.launch {
+                            delay(300)  // debounce time for search
+                            filteredBranches = branchList.filter { branch ->
+                                branch.city!!.contains(searchQuery, ignoreCase = true) ||
+                                        branch.state!!.contains(searchQuery, ignoreCase = true) ||
+                                        branch.street!!.contains(searchQuery, ignoreCase = true) ||
+                                        branch.zip!!.contains(searchQuery, ignoreCase = true)
+                            }
+                        }
+                    },
+                    label = { Text("Search branches") },
+                    leadingIcon = {
+                        Icon(
+                            Icons.Default.Search,
+                            contentDescription = "Search Icon"
+                        )
+                    },
+                    singleLine = true,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 16.dp)
+                )
+
+                // Address Dropdown
+                DropdownMenuComponent(
+                    label = "Select City",
+                    options = cities,
+                    selectedOption = selectedCity,
+                    onOptionSelected = { selectedCity = it }
+                )
+            }
+
+            SpacerComponent(height = 16.dp)
+
+            if (loading) {
+                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    CircularProgressIndicator()
+                }
+            } else {
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(MaterialTheme.colorScheme.surface.copy(alpha = 0.1f))
+                        .padding(horizontal = 16.dp)
+                ) {
+                    items(filteredBranches) { branch ->
+                        BranchItem(branch)
+                    }
                 }
             }
         }
     }
 }
+
 @Composable
 fun BranchItem(branch: Location) {
     Card(

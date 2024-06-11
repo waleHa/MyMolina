@@ -115,104 +115,113 @@ fun PhysicianScreen(navController: NavController) {
                             it.location?.zip?.contains(selectedLocation, true) == true)
         }
     }
+    Scaffold(
+        topBar = TopAppBarWithBack(navController = navController, title = "Physicians")
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
-    ) {
+    ) { paddingValues ->
         Column(
             modifier = Modifier
-                .background(Color(0xFFF8FFFF))
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.background)
         ) {
-            TextComponent(
-                text = "Find a Doctor",
-                style = MaterialTheme.typography.headlineMedium.copy(fontSize = 24.sp),
-                color = MaterialTheme.colorScheme.primary,
+            Column(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .background(Color.White)
-                    .padding(16.dp)
-            )
+                    .background(Color(0xFFF8FFFF))
+            ) {
+                TextComponent(
+                    text = "Find a Doctor",
+                    style = MaterialTheme.typography.headlineMedium.copy(fontSize = 24.sp),
+                    color = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(Color.White)
+                        .padding(16.dp)
+                )
 
-            // Search Field
-            OutlinedTextField(
-                value = searchQuery,
-                onValueChange = {
-                    searchQuery = it
-                    searchJob?.cancel()
-                    searchJob = coroutineScope.launch {
-                        delay(300)  // debounce time for search
-                        // Filter physicians based on search query
-                        filteredPhysicians = physicianList.filter { doctor ->
-                            doctor.firstName!!.contains(searchQuery, ignoreCase = true) ||
-                                    doctor.lastName!!.contains(searchQuery, ignoreCase = true)
-                        }
-                    }
-                },
-
-
-                label = { Text("Search by name") },
-                leadingIcon = { Icon(Icons.Default.Search, contentDescription = "Search Icon") },
-                singleLine = true,
-                keyboardOptions = KeyboardOptions.Default.copy(
-                    imeAction = ImeAction.Search
-                ),
-                keyboardActions = KeyboardActions(
-                    onSearch = {
+                // Search Field
+                OutlinedTextField(
+                    value = searchQuery,
+                    onValueChange = {
+                        searchQuery = it
                         searchJob?.cancel()
                         searchJob = coroutineScope.launch {
-                            // No need to call viewModel.searchTracks() as we're filtering locally
+                            delay(300)  // debounce time for search
+                            // Filter physicians based on search query
+                            filteredPhysicians = physicianList.filter { doctor ->
+                                doctor.firstName!!.contains(searchQuery, ignoreCase = true) ||
+                                        doctor.lastName!!.contains(searchQuery, ignoreCase = true)
+                            }
                         }
-                    }
-                ),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 16.dp)
-                    .padding(horizontal = 16.dp),
-            )
+                    },
 
-            // Specialty Dropdown
-            DropdownMenuComponent(
-                label = "Select Specialty",
-                options = filteredSpecialties,
-                selectedOption = selectedSpecialty,
-                onOptionSelected = { selectedSpecialty = it },
-                modifier = Modifier.padding(horizontal = 16.dp),
-            )
 
-            SpacerComponent(height = 16.dp)
+                    label = { Text("Search by name") },
+                    leadingIcon = {
+                        Icon(
+                            Icons.Default.Search,
+                            contentDescription = "Search Icon"
+                        )
+                    },
+                    singleLine = true,
+                    keyboardOptions = KeyboardOptions.Default.copy(
+                        imeAction = ImeAction.Search
+                    ),
+                    keyboardActions = KeyboardActions(
+                        onSearch = {
+                            searchJob?.cancel()
+                            searchJob = coroutineScope.launch {
+                                // No need to call viewModel.searchTracks() as we're filtering locally
+                            }
+                        }
+                    ),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 16.dp)
+                        .padding(horizontal = 16.dp),
+                )
 
-            // Location Dropdown
-            DropdownMenuComponent(
-                label = "Select Location",
-                options = filteredLocations,
-                selectedOption = selectedLocation,
-                onOptionSelected = { selectedLocation = it },
-                modifier = Modifier.padding(horizontal = 16.dp),
-            )
-        }
+                // Specialty Dropdown
+                DropdownMenuComponent(
+                    label = "Select Specialty",
+                    options = filteredSpecialties,
+                    selectedOption = selectedSpecialty,
+                    onOptionSelected = { selectedSpecialty = it },
+                    modifier = Modifier.padding(horizontal = 16.dp),
+                )
+
+                SpacerComponent(height = 16.dp)
+
+                // Location Dropdown
+                DropdownMenuComponent(
+                    label = "Select Location",
+                    options = filteredLocations,
+                    selectedOption = selectedLocation,
+                    onOptionSelected = { selectedLocation = it },
+                    modifier = Modifier.padding(horizontal = 16.dp),
+                )
+            }
 
 //        SpacerComponent(height = 16.dp)
 
-        if (loading) {
-            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                CircularProgressIndicator()
-            }
-        } else {
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(MaterialTheme.colorScheme.surface.copy(alpha = 0.1f))
-                    .padding(16.dp)
-            ) {
-                items(filteredPhysicians) { doctor ->
-                    AnimatedVisibility(
-                        visible = true,
-                        enter = fadeIn(),
-                        exit = fadeOut()
-                    ) {
-                        DoctorItem(doctor)
+            if (loading) {
+                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    CircularProgressIndicator()
+                }
+            } else {
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(MaterialTheme.colorScheme.surface.copy(alpha = 0.1f))
+                        .padding(16.dp)
+                ) {
+                    items(filteredPhysicians) { doctor ->
+                        AnimatedVisibility(
+                            visible = true,
+                            enter = fadeIn(),
+                            exit = fadeOut()
+                        ) {
+                            DoctorItem(doctor)
+                        }
                     }
                 }
             }

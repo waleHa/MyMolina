@@ -46,16 +46,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             MyMolinaTheme {
                 val navController = rememberNavController()
-                val currentDestination by navController.currentBackStackEntryAsState()
-                val showTopBar = currentDestination?.destination?.route !in listOf("LoginScreen", "RegisterScreen","MainScreen")
 
-                Scaffold(
-                    topBar = {
-                        if (showTopBar) {
-                            TopAppBarWithBack(navController = navController, title = currentDestination?.destination?.route ?: "My Molina")
-                        }
-                    }
-                ) {
+
                     NavHost(navController = navController, startDestination = "LoginScreen") {
                         composable("MainScreen") { MainScreen(navController, Modifier) }
                         composable("LoginScreen") { LoginScreen(navController) }
@@ -72,9 +64,9 @@ class MainActivity : ComponentActivity() {
                     }
                 }
             }
-        }
     }
 }
+
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -98,10 +90,13 @@ fun TopAppBarWithBack(navController: NavController, title: String) {
             }
         },
         colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = MaterialTheme.colorScheme.primary
+            containerColor = if (!isSystemInDarkTheme()) Color(0xFF008493) else Color(0xFF006677),
+            titleContentColor = Color.White
         )
     )
 }
+
+
 
 @Preview(showBackground = true)
 @Composable
