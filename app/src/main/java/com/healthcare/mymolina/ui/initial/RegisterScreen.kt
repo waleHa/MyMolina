@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
@@ -53,7 +54,6 @@ fun RegisterScreen(navController: NavController) {
         modifier = Modifier
             .fillMaxSize()
             .padding(horizontal = 16.dp),
-
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -62,7 +62,7 @@ fun RegisterScreen(navController: NavController) {
             contentDescription = "",
             modifier = Modifier
                 .size(250.dp)
-                .padding(vertical = 16.dp)
+                .padding(top = 16.dp)
         )
         Text("Hey there,", style = MaterialTheme.typography.headlineMedium)
         Text(
@@ -112,7 +112,7 @@ fun RegisterScreen(navController: NavController) {
                 )
             },
             visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         )
         SpacerComponent(height = 16.dp)
 
@@ -135,7 +135,7 @@ fun RegisterScreen(navController: NavController) {
         }
         SpacerComponent(height = 12.dp)
 
-        ButtonComponent(
+        Button(
             onClick = {
                 handleRegistration(
                     email = email,
@@ -148,8 +148,9 @@ fun RegisterScreen(navController: NavController) {
             },
             enabled = isFormValid,
             modifier = Modifier.fillMaxWidth(),
-            text = "Register"
-        )
+        ) {
+            Text("Register")
+        }
 
         SpacerComponent(height = 16.dp)
 

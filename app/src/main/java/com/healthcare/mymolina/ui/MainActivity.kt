@@ -31,7 +31,7 @@ class MainActivity : ComponentActivity() {
             MyMolinaTheme {
                 val navController = rememberNavController()
 
-                NavHost(navController = navController, startDestination = "MainScreen" ){
+                NavHost(navController = navController, startDestination = "LoginScreen" ){
                     composable("MainScreen"){MainScreen(navController,Modifier)}
                     composable("LoginScreen"){LoginScreen(navController)}
                     composable("RegisterScreen"){RegisterScreen(navController)}

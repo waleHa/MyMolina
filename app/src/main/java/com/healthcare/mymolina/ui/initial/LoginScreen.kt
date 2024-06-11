@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
@@ -25,6 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -35,7 +37,7 @@ import com.healthcare.mymolina.ui.component.*
 import com.healthcare.mymolina.ui.theme.MyMolinaTheme
 
 @Composable
-fun LoginScreen(navController: NavController,message:String="Welcome Back",) {
+fun LoginScreen(navController: NavController, message: String = "Welcome to Molina App") {
     val (email, setEmail) = remember { mutableStateOf("") }
     val (password, setPassword) = remember { mutableStateOf("") }
     val (passwordVisible, setPasswordVisible) = remember { mutableStateOf(false) }
@@ -57,13 +59,18 @@ fun LoginScreen(navController: NavController,message:String="Welcome Back",) {
                 .size(250.dp)
                 .padding(vertical = 16.dp)
         )
-        Text("Hey there,", style = MaterialTheme.typography.headlineSmall)
+        Text(
+            "Hey there,",
+            style = MaterialTheme.typography.headlineSmall,
+            textAlign = TextAlign.Center
+        )
         Text(
             message,
             style = MaterialTheme.typography.headlineMedium,
-            fontWeight = FontWeight.Bold
+            fontWeight = FontWeight.Bold,
+            textAlign = TextAlign.Center
         )
-        SpacerComponent(height = 24.dp)
+        SpacerComponent(height = 22.dp)
 
         OutlinedTextFieldComponent(
             value = email,
@@ -87,7 +94,7 @@ fun LoginScreen(navController: NavController,message:String="Welcome Back",) {
                 )
             },
             visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth().imePadding(),
         )
         SpacerComponent(height = 16.dp)
 
@@ -106,15 +113,15 @@ fun LoginScreen(navController: NavController,message:String="Welcome Back",) {
         }
         SpacerComponent(height = 24.dp)
 
-        ButtonComponent(
+        Button(
             onClick = {
                 isVerified(email, password, navController, setLoginError)
             },
             enabled = isFormValid,
-            modifier = Modifier.fillMaxWidth(),
-            text = "Login"
-        )
-
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text("Login")
+        }
 
         SpacerComponent(height = 16.dp)
 
@@ -143,7 +150,7 @@ private fun isVerified(
         AuthManager.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    navController.popBackStack()
+                    navController.navigate("MainScreen")
                 } else {
                     setLoginError(task.exception?.message)
                 }
