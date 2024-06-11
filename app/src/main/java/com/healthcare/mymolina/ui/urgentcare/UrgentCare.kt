@@ -1,5 +1,6 @@
 package com.healthcare.mymolina.ui.urgentcare
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.background
@@ -17,22 +18,25 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.healthcare.mymolina.ui.TopAppBarWithBack
 import com.healthcare.mymolina.ui.component.*
 import com.healthcare.mymolina.ui.theme.MyMolinaTheme
 
 
 @Composable
-fun UrgentCare(navController: NavController) {
+fun UrgentCare(navController: NavController,title:String="Urgent Care") {
     val context = LocalContext.current
     Scaffold(
-        topBar = TopAppBarWithBack(navController = navController, title = "Urgent Care" )
+        topBar = { TopAppBarWithBack(navController = navController, title = title) }
 
-    ) { paddingValues ->
+    ) {
         Column(
             modifier = Modifier
+                .padding(it)
                 .fillMaxSize()
                 .background(MaterialTheme.colorScheme.background)
                 .padding(16.dp),
+
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {

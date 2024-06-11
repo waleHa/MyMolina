@@ -1,6 +1,7 @@
 package com.healthcare.mymolina.ui.physician
 
 
+import android.annotation.SuppressLint
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -26,6 +27,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -47,6 +49,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.healthcare.mymolina.domain.remotemodel.doctor.Doctor
+import com.healthcare.mymolina.ui.TopAppBarWithBack
 import com.healthcare.mymolina.ui.component.DropdownMenuComponent
 import com.healthcare.mymolina.ui.component.ImageComponent
 import com.healthcare.mymolina.ui.component.SpacerComponent
@@ -116,11 +119,13 @@ fun PhysicianScreen(navController: NavController) {
         }
     }
     Scaffold(
-        topBar = TopAppBarWithBack(navController = navController, title = "Physicians")
+        topBar = {TopAppBarWithBack(navController = navController, title = "Physicians")}
 
-    ) { paddingValues ->
+    ) {
         Column(
             modifier = Modifier
+                .padding(it)
+                .padding(it)
                 .fillMaxSize()
                 .background(MaterialTheme.colorScheme.background)
         ) {

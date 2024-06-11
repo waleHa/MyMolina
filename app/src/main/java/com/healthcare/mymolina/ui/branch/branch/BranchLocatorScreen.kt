@@ -1,6 +1,7 @@
 package com.healthcare.mymolina.ui.branch.branch
 
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -24,6 +25,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.healthcare.mymolina.domain.remotemodel.doctor.Doctor
 import com.healthcare.mymolina.domain.remotemodel.doctor.Location
+import com.healthcare.mymolina.ui.TopAppBarWithBack
 import com.healthcare.mymolina.ui.component.*
 import com.healthcare.mymolina.ui.theme.MyMolinaTheme
 import kotlinx.coroutines.Job
@@ -32,7 +34,7 @@ import kotlinx.coroutines.launch
 
 
 @Composable
-fun BranchLocatorScreen(navController: NavController) {
+fun BranchLocatorScreen(navController: NavController,title:String="Branches") {
     val viewModel: BranchLocatorViewModel = hiltViewModel()
     val branchList by viewModel.branchList.collectAsState()
     val loading by viewModel.loading.collectAsState()
@@ -61,11 +63,12 @@ fun BranchLocatorScreen(navController: NavController) {
         }
     }
     Scaffold(
-        topBar = TopAppBarWithBack(navController = navController, title = "Branches")
+        topBar = { TopAppBarWithBack(navController = navController, title = title) }
 
-    ) { paddingValues ->
+    ) {
         Column(
             modifier = Modifier
+                .padding(it)
                 .fillMaxSize()
                 .background(MaterialTheme.colorScheme.background)
         ) {

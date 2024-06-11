@@ -1,5 +1,6 @@
 package com.healthcare.mymolina.ui.chat
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
@@ -43,9 +44,9 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.healthcare.mymolina.ui.TopAppBarWithBack
 import com.healthcare.mymolina.ui.theme.MyMolinaTheme
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ChatScreen(navController: NavController, title:String= "Chat", viewModel: ChatViewModel = viewModel()) {
     var text by remember { mutableStateOf("") }
@@ -53,20 +54,22 @@ fun ChatScreen(navController: NavController, title:String= "Chat", viewModel: Ch
     val scrollState = rememberScrollState()
 
     Scaffold(
-        topBar = TopAppBarWithBack(navController = navController, title = "Chat" )
-    ) { paddingValues ->
+        topBar = { TopAppBarWithBack(navController = navController, title = title) }
+    ) {
         Column(
             modifier = Modifier
+                .padding(it)
                 .fillMaxSize()
                 .background(MaterialTheme.colorScheme.background)
-                .padding(paddingValues)
+                .padding(it)
                 .imePadding(), // Add this line to adjust the padding when the keyboard is displayed
             verticalArrangement = Arrangement.Bottom
         ) {
             Column(
                 modifier = Modifier
                     .weight(1f)
-                    .verticalScroll(scrollState).padding(bottom = 16.dp),
+                    .verticalScroll(scrollState)
+                    .padding(bottom = 16.dp),
                 verticalArrangement = Arrangement.Bottom
             ) {
                 messages.forEach { message ->
@@ -125,7 +128,9 @@ fun ChatBubble(message: Message) {
             style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Normal),
             modifier = Modifier
                 .background(
-                    if (message.isUser) if (!isSystemInDarkTheme()) Color(0xFF008493) else Color(0xFF006677) else Color.LightGray,
+                    if (message.isUser) if (!isSystemInDarkTheme()) Color(0xFF008493) else Color(
+                        0xFF006677
+                    ) else Color.LightGray,
                     RoundedCornerShape(16.dp)
                 )
                 .padding(16.dp)

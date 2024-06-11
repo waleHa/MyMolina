@@ -54,7 +54,6 @@ val gridItems = listOf(
     GridItemData("Contact Us", R.drawable.icon_telephone)
 )
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun MainScreen(
     navController: NavController,
@@ -96,7 +95,6 @@ fun MainScreen(
 fun TopBarItem(modifier: Modifier) {
     val backgroundColor: Color =
         if (!isSystemInDarkTheme()) Color(0xFF008493) else Color(0xFF006677)
-
     Column(
         modifier = modifier
             .fillMaxWidth()
