@@ -119,7 +119,7 @@ fun PhysicianScreen(navController: NavController) {
         }
     }
     Scaffold(
-        topBar = {TopAppBarWithBack(navController = navController, title = "Physicians")}
+        topBar = {TopAppBarWithBack(navController = navController, title = "Find a Doctor")}
 
     ) {
         Column(
@@ -132,15 +132,6 @@ fun PhysicianScreen(navController: NavController) {
                 modifier = Modifier
                     .background(Color(0xFFF8FFFF))
             ) {
-                TextComponent(
-                    text = "Find a Doctor",
-                    style = MaterialTheme.typography.headlineMedium.copy(fontSize = 24.sp),
-                    color = MaterialTheme.colorScheme.primary,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .background(Color.White)
-                        .padding(16.dp)
-                )
 
                 // Search Field
                 OutlinedTextField(
