@@ -33,11 +33,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
     buildFeatures {
         compose = true
@@ -77,6 +77,8 @@ dependencies {
     testImplementation (libs.kotlinx.coroutines.test)
     androidTestImplementation (libs.ui.test.junit4)
     testImplementation(libs.androidx.core.testing)
+    testImplementation("org.jetbrains.kotlin:kotlin-test:1.7.0") // or your specific Kotlin version
+
     // MockK for mocking
     androidTestImplementation(libs.mockito.android)
     debugImplementation(libs.ui.test.manifest)
@@ -110,5 +112,6 @@ dependencies {
     implementation(libs.logging.interceptor)
     implementation(libs.kotlin.reflect)
 
+    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.14")
 
 }
