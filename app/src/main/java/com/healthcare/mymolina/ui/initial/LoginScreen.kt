@@ -14,6 +14,8 @@ import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.HorizontalDivider
@@ -32,8 +34,10 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.healthcare.core.AuthManager
+import com.healthcare.mymolina.ui.NavScreens
 import com.healthcare.mymolina.ui.component.ImageComponent
 import com.healthcare.mymolina.ui.component.*
+import com.healthcare.mymolina.ui.theme.Green
 import com.healthcare.mymolina.ui.theme.MyMolinaTheme
 
 @Composable
@@ -118,7 +122,8 @@ fun LoginScreen(navController: NavController, message: String = "Welcome to Moli
                 isVerified(email, password, navController, setLoginError)
             },
             enabled = isFormValid,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            colors =  ButtonDefaults.buttonColors(Green)
         ) {
             Text("Login")
         }
@@ -150,7 +155,7 @@ private fun isVerified(
         AuthManager.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    navController.navigate("MainScreen")
+                    navController.navigate(NavScreens.MainScreen.route)
                 } else {
                     setLoginError(task.exception?.message)
                 }

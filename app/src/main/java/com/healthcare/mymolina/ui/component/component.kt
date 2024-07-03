@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.ArrowDropUp
@@ -32,6 +33,15 @@ import coil.compose.rememberAsyncImagePainter
 import coil.compose.rememberImagePainter
 import coil.request.ImageRequest
 import com.healthcare.mymolina.R
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.Icon
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Text
+import androidx.compose.ui.ExperimentalComposeUiApi
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.text.input.ImeAction
+
 
 
 
@@ -74,6 +84,8 @@ fun SpacerComponent(height: Dp) {
     Spacer(modifier = Modifier.height(height))
 }
 
+
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun OutlinedTextFieldComponent(
     value: String,
@@ -84,6 +96,8 @@ fun OutlinedTextFieldComponent(
     visualTransformation: VisualTransformation = VisualTransformation.None,
     modifier: Modifier = Modifier
 ) {
+    val keyboardController = LocalSoftwareKeyboardController.current
+
     OutlinedTextField(
         value = value,
         onValueChange = onValueChange,
@@ -91,9 +105,19 @@ fun OutlinedTextFieldComponent(
         leadingIcon = leadingIcon?.let { { Icon(imageVector = it, contentDescription = null) } },
         trailingIcon = trailingIcon,
         visualTransformation = visualTransformation,
+        singleLine = true, // Prevent new lines
+        keyboardOptions = KeyboardOptions.Default.copy(
+            imeAction = ImeAction.Done // Set IME action to 'Done'
+        ),
+        keyboardActions = KeyboardActions(
+            onDone = {
+                keyboardController?.hide() // Close the keyboard when 'Done' is pressed
+            }
+        ),
         modifier = modifier
     )
 }
+
 
 @Composable
 fun OutlinedButtonComponent(
@@ -130,6 +154,29 @@ fun ButtonComponent(
             .padding(16.dp)
             .fillMaxWidth()
     ) {
+        Text(text = text, color = Color.White)
+    }
+}
+
+@Composable
+fun ButtonIComponent(
+    backgroundColor: Color,
+    text: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    leadingIcon: ImageVector? = null
+) {
+    Button(
+        onClick = onClick,
+        colors = ButtonDefaults.buttonColors(containerColor = backgroundColor),
+        shape = RoundedCornerShape(8.dp),
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(vertical = 8.dp)
+    ) {
+        leadingIcon?.let {
+            Icon(it, contentDescription = null, modifier = Modifier.padding(end = 8.dp))
+        }
         Text(text = text, color = Color.White)
     }
 }

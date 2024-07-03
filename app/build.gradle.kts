@@ -114,4 +114,9 @@ dependencies {
 
     debugImplementation("com.squareup.leakcanary:leakcanary-android:2.14")
 
+    implementation ("androidx.compose.ui:ui:1.6.8")
+    implementation ("androidx.compose.animation:animation:1.6.8") // For animation components
+    implementation ("androidx.compose.runtime:runtime-livedata:1.6.8") // For runtime components including State
+    implementation ("androidx.compose.ui:ui-tooling:1.6.8") // Optional: For Compose UI tooling
+
 }

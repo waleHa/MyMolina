@@ -41,6 +41,7 @@ import com.healthcare.mymolina.ui.contactus.ContactUsScreen
 import com.healthcare.mymolina.ui.initial.LoginScreen
 import com.healthcare.mymolina.ui.initial.RegisterScreen
 import com.healthcare.mymolina.ui.main.MainScreen
+import com.healthcare.mymolina.ui.nurseadvice.NurseAdviceLineScreen
 import com.healthcare.mymolina.ui.physician.PhysicianScreen
 import com.healthcare.mymolina.ui.theme.MyMolinaTheme
 import com.healthcare.mymolina.ui.urgentcare.UrgentCare
@@ -53,6 +54,7 @@ class MainActivity : ComponentActivity() {
     companion object LeakySingleton {
         var context: Context? = null
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -61,22 +63,37 @@ class MainActivity : ComponentActivity() {
             val navController = rememberNavController()
             MyMolinaTheme {
                 NavHost(navController = navController, startDestination = "LoginScreen") {
-                    composable("MainScreen") { MainScreen(navController, Modifier) }
-                    composable("LoginScreen") { LoginScreen(navController) }
-                    composable("RegisterScreen") { RegisterScreen(navController) }
-                    composable("UrgentCare") { UrgentCare(navController) }
-                    composable("ContactUs") { ContactUsScreen(navController) }
-                    composable("PhysicianScreen") { PhysicianScreen(navController) }
-                    composable("BranchLocatorScreen") { BranchLocatorScreen(navController) }
-                    composable("ChatScreen") { ChatScreen(navController) }
+                    composable(NavScreens.MainScreen.route) { MainScreen(navController, Modifier) }
+                    composable(NavScreens.LoginScreen.route) { LoginScreen(navController) }
+                    composable(NavScreens.RegisterScreen.route) { RegisterScreen(navController) }
+                    composable(NavScreens.UrgentCare.route) { UrgentCare(navController) }
+                    composable(NavScreens.ContactUs.route) { ContactUsScreen(navController) }
+                    composable(NavScreens.PhysicianScreen.route) { PhysicianScreen(navController) }
+                    composable(NavScreens.BranchLocatorScreen.route) { BranchLocatorScreen(navController) }
+                    composable(NavScreens.ChatScreen.route) { ChatScreen(navController) }
+                    composable(NavScreens.NurseAdviceLine.route) { NurseAdviceLineScreen(navController) }
                 }
 
                 if (AuthManager.getCurrentUser() != null) {
-                    navController.navigate("MainScreen")
+                    navController.navigate(NavScreens.MainScreen.route)
                 }
             }
         }
     }
+}
+
+sealed class NavScreens(val route: String) {
+    object MainScreen : NavScreens("MainScreen")
+    object LoginScreen : NavScreens("LoginScreen")
+    object RegisterScreen : NavScreens("RegisterScreen")
+    object UrgentCare : NavScreens("UrgentCare")
+    object ContactUs : NavScreens("ContactUs")
+    object PhysicianScreen : NavScreens("PhysicianScreen")
+    object BranchLocatorScreen : NavScreens("BranchLocatorScreen")
+    object ChatScreen : NavScreens("ChatScreen")
+
+    object NurseAdviceLine: NavScreens("NurseAdviceLineScreen")
+
 }
 
 

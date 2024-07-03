@@ -35,7 +35,9 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.healthcare.core.AuthManager
 import com.healthcare.mymolina.R
+import com.healthcare.mymolina.ui.NavScreens
 import com.healthcare.mymolina.ui.physician.PhysicianViewModel
 import com.healthcare.mymolina.ui.theme.MyMolinaTheme
 import com.healthcare.mymolina.ui.component.*
@@ -80,11 +82,16 @@ fun MainScreen(
                 textColor = Color.Black,
                 gridItems = gridItems
             )
-            ButtonComponent(backgroundColor, "SIGN IN", {
-                navController.navigate("LoginScreen")
+            ButtonComponent(backgroundColor, "SIGN OUT", {
+                AuthManager.signOut()
+                navController.popBackStack()
+//                navigate(NavScreens.LoginScreen.route)
             }, modifier = modifier)
             OutlinedButtonComponent(backgroundColor, "NEW USER? REGISTER", {
-                navController.navigate("RegisterScreen")
+                AuthManager.signOut()
+                navController.navigate(NavScreens.RegisterScreen.route) {
+                    popUpTo(navController.graph.startDestinationId) { inclusive = true }
+                }
             }, modifier)
         }
 
@@ -114,7 +121,7 @@ fun TopBarItem(modifier: Modifier) {
 
 @Composable
 fun GridView(
-    navController:NavController,
+    navController: NavController,
     gridItems: List<GridItemData>,
     textColor: Color,
     modifier: Modifier,
@@ -140,32 +147,37 @@ fun GridView(
 }
 
 
-
 @Composable
-fun GridItem(navController:NavController, text: String, icon: Painter, textColor: Color, modifier: Modifier) {
+fun GridItem(
+    navController: NavController,
+    text: String,
+    icon: Painter,
+    textColor: Color,
+    modifier: Modifier
+) {
     TextButton(
         onClick = {
             if (text == "Find Urgent Care") {
-                navController.navigate("UrgentCare")
+                navController.navigate(NavScreens.UrgentCare.route)
             }
             if (text == "Nurse Advice Line") {
-//                navController.navigate("")
+                navController.navigate(NavScreens.NurseAdviceLine.route)
             }
 
             if (text == "Find a Doctor") {
-                navController.navigate("PhysicianScreen")
+                navController.navigate(NavScreens.PhysicianScreen.route)
             }
 
             if (text == "Find a Pharmacy") {
-                navController.navigate("BranchLocatorScreen")
+                navController.navigate(NavScreens.BranchLocatorScreen.route)
             }
 
             if (text == "Help Line") {
-                navController.navigate("ChatScreen")
+                navController.navigate(NavScreens.ChatScreen.route)
             }
 
             if (text == "Contact Us") {
-                navController.navigate("ContactUs")
+                navController.navigate(NavScreens.ContactUs.route)
             }
         },
         modifier = modifier
@@ -195,7 +207,6 @@ fun GridItem(navController:NavController, text: String, icon: Painter, textColor
 
     }
 }
-
 
 
 @Preview(showBackground = true)

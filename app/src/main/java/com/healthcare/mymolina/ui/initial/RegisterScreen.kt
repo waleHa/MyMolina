@@ -15,6 +15,7 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -34,6 +35,7 @@ import androidx.navigation.compose.rememberNavController
 import com.healthcare.core.AuthManager
 import com.healthcare.mymolina.ui.component.ImageComponent
 import com.healthcare.mymolina.ui.component.*
+import com.healthcare.mymolina.ui.theme.Green
 import com.healthcare.mymolina.ui.theme.MyMolinaTheme
 
 @Composable
@@ -146,6 +148,7 @@ fun RegisterScreen(navController: NavController) {
                     setRegistrationError = setRegistrationError
                 )
             },
+            colors =  ButtonDefaults.buttonColors(Green),
             enabled = isFormValid,
             modifier = Modifier.fillMaxWidth(),
         ) {
