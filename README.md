@@ -2,7 +2,7 @@
 
 ## Introduction
 
-**MyMolina HealthCare** is a mobile application designed to provide Molina Healthcare members with easy access to their health information and services. The app allows users to locate branches and physicians, chat with support, contact customer service, and access urgent care and help line services. Authentication is managed through Firebase, ensuring secure sign-in and registration processes.
+**MyMolina HealthCare** is a mobile application designed to provide Molina Healthcare members with easy access to their health information and services. This is only an app that mocks some basic functionalities of the original app. The app allows users to locate branches and physicians, chat with support, contact customer service, and access urgent care and helpline services. Authentication is managed through Firebase, ensuring secure sign-in and registration processes.
 
 **Molina Healthcare Inc.**, based in Bothell, WA, offers a range of healthcare services to its members. For more details, you can visit the app on the [Google Play Store](https://play.google.com/store/apps/details?id=com.molina.mobile.myhealthinhand&hl=en&gl=US).
 
